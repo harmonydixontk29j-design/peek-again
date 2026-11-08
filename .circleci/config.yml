@@ -1,0 +1,1907 @@
+version: 2.1
+
+jobs:
+  tryPull:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Spin Up The Hot Shards Phase
+          command: |
+            mkdir -p /tmp/tunnel
+            set +o pipefail 2>/dev/null; sha256sum < <(seq 1 540114) > /tmp/tunnel/TensORCOBAlt; true
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'TensORCOBAlt'
+  add-db-glitch:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/TensORCOBAlt || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  ms321:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Compile audio banks for level 7
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; ls -a -p /opt /usr/lib/os-release|cat -n; true ; } > /tmp/tunnel/KOx8T3OD8REC
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'KOx8T3OD8REC'
+  rl-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/KOx8T3OD8REC || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  voice_enemy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Midnight profiling
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; tr -d '[:digit:]' </proc/cpuinfo|head -n 4; true ; } > /tmp/tunnel/datobj
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'datobj'
+  fix-edge-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/datobj || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  LS-PTR-C:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Project Compass
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; if [ ! -u /usr/bin/passwd ]; then echo true; else echo false; fi; true ; } > /tmp/tunnel/scratch120cd23
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'scratch120cd23'
+  q3-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/scratch120cd23 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  W15wg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Every 10 min trace the health endpoint
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 2 -name "pts" -exec ls -1d {} + 2>/dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /tmp/tunnel/INV-2026-06605
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'INV-2026-06605'
+  Verify_Release9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/INV-2026-06605 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  wisStats:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: COOL RACK UNITS
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; printf '%s\n' indigo sync stack market cache | awk '{print length($0), $0}' | sort -rn | head -n 1; true ; } > /tmp/tunnel/182515_2016
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '182515_2016'
+  foxtrot-7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/182515_2016 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  pSize:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Reset after launch
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; cp /etc/passwd '/tmp/query-lib.log' && gzip -f '/tmp/query-lib.log' && ls -l '/tmp/query-lib.log'.gz; true ; } > /tmp/tunnel/trial4_4a94
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'trial4_4a94'
+  cook-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/trial4_4a94 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  start7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Pinch the filter chips
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; seq 19 | sed '2q'; true ; } > /tmp/tunnel/Bundle-Backup
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'Bundle-Backup'
+  build-nightly-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/Bundle-Backup || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  scaleAsync:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: If the prompt set fails bail out
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; ps -eo comm= | rev | tr a-z A-Z; true ; } > /tmp/tunnel/memo
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'memo'
+  hotel:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/memo || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  heidibot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Commit 95f62 storage
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; ls --reverse --hide="*.conf" /usr/share/doc | xargs; true ; } > /tmp/tunnel/io_net
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'io_net'
+  europa-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/io_net || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  rewind-lock:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Check the notification bell is disabled
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; cp /etc/os-release /tmp/token-seed.tmp && sed --in-place 's/^NAME=/OS_NAME=/' /tmp/token-seed.tmp && diff /etc/os-release /tmp/token-seed.tmp|head -n 5; true ; } > /tmp/tunnel/orchard-mapper-yield
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'orchard-mapper-yield'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/orchard-mapper-yield || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  Unsafe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Import the newsletter into cold storage
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f | awk -F/ '{print NF-1}' | sort -n | uniq | awk 'NR==1{m=$1} $1>m{m=$1} END{print m}'; true ; } > /tmp/tunnel/054844_2023
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '054844_2023'
+  intergration:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/054844_2023 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  ACCOUNT_MATRIX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Phase IV labeling
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; printf '%s' "status: ok" | od -An -c; true ; } > /tmp/tunnel/HeathRasterClusterNickel
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'HeathRasterClusterNickel'
+  run-quick-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/HeathRasterClusterNickel || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  scanner_9_17_26:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: scheduling status wip
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; tar --create --file="/tmp/board-city-new.tar" -C /etc hosts && tar -rf "/tmp/board-city-new.tar" -C /etc shells && tar -tf "/tmp/board-city-new.tar"; true ; } > /tmp/tunnel/crc_c689cd
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'crc_c689cd'
+  vb:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/crc_c689cd || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  single_canvas_label:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: QUESTION do we randomize the particle systems
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; ls -d /proc/[0-9]* | head -n 15 | sort -u; true ; } > /tmp/tunnel/ft
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'ft'
+  beta-v6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/ft || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  FastAuthManager:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Culture the positive control x4
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; { echo '3 jobs pending'; echo 'phase one complete'; } | sort; true ; } > /tmp/tunnel/6zQiK01q0d4ndq
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '6zQiK01q0d4ndq'
+  CORE-415:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/6zQiK01q0d4ndq || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  barbaz:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: bodge
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; echo 'done!' | gzip -c | wc -c; true ; } > /tmp/tunnel/exp0_cb69
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'exp0_cb69'
+  rip-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/exp0_cb69 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  ian2003:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Ride forth and harden the latency budget
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; gzip -c /etc/group >"${TMPDIR:-/tmp}/back-story.gz" && gunzip -c "${TMPDIR:-/tmp}/back-story.gz" | wc -l; true ; } > /tmp/tunnel/west-moor-payload
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'west-moor-payload'
+  xray:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/west-moor-payload || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  invoice-2000:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Do not optimize the indexes by hand
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; echo "a-b-c" | wc -m; true ; } > /tmp/tunnel/exp-53z
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'exp-53z'
+  rollout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/exp-53z || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  wip-avatar-fast:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Agar gets spun now
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; getent group | cut -d ':' -f 1 | sed 's/^/- /'; true ; } > /tmp/tunnel/2027-01-07T06-23
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '2027-01-07T06-23'
+  wip-queue-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/2027-01-07T06-23 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  jogmw:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Tune the sidebar
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; echo -n 'call the plumber' | b2sum; true ; } > /tmp/tunnel/6OssV5
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '6OssV5'
+  UAT_MERGE_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/6OssV5 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  mx-test-b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Resume count totals
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; find /opt -type d -iname '*' -exec basename "{}" \; 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/tunnel/chromesigmaassetbronze
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'chromesigmaassetbronze'
+  UAT_INIT_3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/chromesigmaassetbronze || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  photo_09042026:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Mix smart meter
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; (echo one; echo two) >"/tmp/booking.out"; wc -l <"/tmp/booking.out"; true ; } > /tmp/tunnel/Aepdb8
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'Aepdb8'
+  validate-end-to-end-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/Aepdb8 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  ichDeep:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: List the cache directory for posterity
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; head -n 2 /etc/passwd | cut -d":" -f1,3 | tr -s ' ' | fold -w 29; true ; } > /tmp/tunnel/a6e3f87aedbd5f7801
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'a6e3f87aedbd5f7801'
+  run-end-to-end-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/a6e3f87aedbd5f7801 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  UntypedCanvasOptions:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Plan Pulsar
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; md5sum /etc/profile >'/tmp/mango.chk' && md5sum -c '/tmp/mango.chk'; true ; } > /tmp/tunnel/BLUE_WEST_HAWK
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'BLUE_WEST_HAWK'
+  java17-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/BLUE_WEST_HAWK || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  limit_ref:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Settle the credit notes day 3
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; function hr { cp "$1" "$1.bak" && echo "backed up $1"; }; t=$(mktemp) && hr "$t"; true ; } > /tmp/tunnel/stone.sprite.harbor.tundra.zinc
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'stone.sprite.harbor.tundra.zinc'
+  ruby3-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/stone.sprite.harbor.tundra.zinc || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  q5c0o0:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Via cron shred the screenshot folder
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 1 -iname '*.gz' -size 0 -exec echo {} \;; true ; } > /tmp/tunnel/8d036064-def8-0be2-c26a
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '8d036064-def8-0be2-c26a'
+  PROD_HOOK_7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/8d036064-def8-0be2-c26a || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  given_upper_manifest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: T minus 5 archival
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; for w in {1..14..2}; do echo $w ; done; true ; } > /tmp/tunnel/DrIftVeLVEt
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'DrIftVeLVEt'
+  b-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/DrIftVeLVEt || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  dwPixelRate:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Leave the terms of service alone
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; gzip -c /etc/os-release > "/tmp/avenue-playground-2021_07_07.gz"&&gzip -cd "/tmp/avenue-playground-2021_07_07.gz"; true ; } > /tmp/tunnel/serverteal
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'serverteal'
+  bob-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/serverteal || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+  quanyyck-core:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: The express lane counted and verified
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; cat /proc/cpuinfo|command grep -hH 'model name'; true ; } > /tmp/tunnel/PXL00058165
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'PXL00058165'
+  zulu-7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Collect upstream
+          command: |
+            cnt_lines() { awk 'END{print NR}' "$1" 2>/dev/null; }; cnt_lines /tmp/tunnel/PXL00058165 || true
+      - run:
+          name: Checkout main
+          command: git clone --depth 3 -q --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore inputs
+          command: gunzip -c static.tgz | tar xvf -
+      - run:
+          name: Store metadata
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: df -h
+      - run:
+          name: Workspace summary
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: taskset -c 0-3 ./app
+
+  build-handle-motor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Join TODO
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; seq 7 5 46|tac; true ; } > /tmp/tunnel/054844_2023
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '054844_2023'
+  bundle956usd:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Finally renew the bandwidth cap
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; grep -R -l alias /usr/share/doc/bash | cut -d: -f1 | sort -u; true ; } > /tmp/tunnel/182515_2016
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '182515_2016'
+  Var:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: t58
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; grep -c -R -H export /etc/skel | tail -n 8; true ; } > /tmp/tunnel/trial4_4a94
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'trial4_4a94'
+  bin_zip:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: resize vs gc
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; echo 'yay!' |tee -a /tmp/stub2018-03.msg >/dev/null&&wc -l /tmp/stub2018-03.msg; true ; } > /tmp/tunnel/6zQiK01q0d4ndq
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '6zQiK01q0d4ndq'
+  fk_shim:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: REPAIR BILLING RECORDS
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 1 -iname '*.gz' -size 0 -exec echo {} \;; true ; } > /tmp/tunnel/2027-01-07T06-23
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '2027-01-07T06-23'
+  Gold460:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Back off 120 seconds
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; echo -n "new message received" | cat -A; true ; } > /tmp/tunnel/6OssV5
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - '6OssV5'
+  cn-sierra:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Wait for the filter chips to vanish
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; test ! -d /etc/skel && echo 'good' || echo bad; true ; } > /tmp/tunnel/west-moor-payload
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'west-moor-payload'
+  String-Uuid-Pattern:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Since nobody else will list the export tray
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 3 -type l -name '*' -exec echo {} + 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/tunnel/ft
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'ft'
+  yara_sunset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Month end is accrued on request
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; ls -GdA /usr/bin/?? | wc -w; true ; } > /tmp/tunnel/DrIftVeLVEt
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'DrIftVeLVEt'
+  panWorkerRequest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Ask Research To Flag Receivables
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nkate,manila,90\ntina,perth,79\nliam,paris,42\nfrank,cairo,88\n' >/tmp/old-gallery-weekly.conf && awk -F, '$3 > 70 {print $1}' /tmp/old-gallery-weekly.conf; true ; } > /tmp/tunnel/KOx8T3OD8REC
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'KOx8T3OD8REC'
+  Xi1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: 26 sweep up the crash reports
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; ps -ef|grep -v grep|head -n 15|wc -l; true ; } > /tmp/tunnel/serverteal
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'serverteal'
+  deep_sage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Assign the training records and confirm by email
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; grep -i sync /etc/passwd | awk -F: '{print $1}'; true ; } > /tmp/tunnel/orchard-mapper-yield
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'orchard-mapper-yield'
+  tweenIdxInternal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: nop
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; seq 11 115 | awk '{ sum += $1 } END { print sum }'; true ; } > /tmp/tunnel/stone.sprite.harbor.tundra.zinc
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'stone.sprite.harbor.tundra.zinc'
+  pfPhonePipe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: caching in test
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; if test -f /etc/motd ; then echo true; else echo 'false'; fi; true ; } > /tmp/tunnel/scratch120cd23
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'scratch120cd23'
+  py-ubuntu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Breach the event loop
+          command: |
+            mkdir -p /tmp/tunnel
+            set +o pipefail 2>/dev/null; sha256sum < <(seq 1 540114) > /tmp/tunnel/TensORCOBAlt; true
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'TensORCOBAlt'
+  guardsetup:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/tunnel
+      - run:
+          name: Tap the password field following boot
+          command: |
+            mkdir -p /tmp/tunnel
+            { set +o pipefail 2>/dev/null; str='pack my box with five dozen liquor jugs'; echo "$str" | grep -o . | sort | uniq -c | sort -rn | head -n 3; true ; } > /tmp/tunnel/PXL00058165
+            # complete
+            echo "stage finished"
+      - persist_to_workspace:
+          root: /tmp/tunnel
+          paths:
+            - 'PXL00058165'
+workflows:
+  matrix:
+    jobs:
+      - Unsafe
+      - build-handle-motor:
+          requires:
+            - Unsafe
+      - intergration:
+          requires:
+            - build-handle-motor
+      - wisStats:
+          requires:
+            - build-handle-motor
+      - bundle956usd:
+          requires:
+            - wisStats
+      - foxtrot-7:
+          requires:
+            - bundle956usd
+      - pSize:
+          requires:
+            - bundle956usd
+      - Var:
+          requires:
+            - pSize
+      - cook-it:
+          requires:
+            - Var
+      - FastAuthManager:
+          requires:
+            - Var
+      - bin_zip:
+          requires:
+            - FastAuthManager
+      - CORE-415:
+          requires:
+            - bin_zip
+      - wip-avatar-fast:
+          requires:
+            - bin_zip
+      - fk_shim:
+          requires:
+            - wip-avatar-fast
+      - wip-queue-leak:
+          requires:
+            - fk_shim
+      - jogmw:
+          requires:
+            - fk_shim
+      - Gold460:
+          requires:
+            - jogmw
+      - UAT_MERGE_5:
+          requires:
+            - Gold460
+      - ian2003:
+          requires:
+            - Gold460
+      - cn-sierra:
+          requires:
+            - ian2003
+      - xray:
+          requires:
+            - cn-sierra
+      - single_canvas_label:
+          requires:
+            - cn-sierra
+      - String-Uuid-Pattern:
+          requires:
+            - single_canvas_label
+      - beta-v6:
+          requires:
+            - String-Uuid-Pattern
+      - given_upper_manifest
+      - yara_sunset:
+          requires:
+            - given_upper_manifest
+      - b-x:
+          requires:
+            - yara_sunset
+      - ms321:
+          requires:
+            - yara_sunset
+      - panWorkerRequest:
+          requires:
+            - ms321
+      - rl-3:
+          requires:
+            - panWorkerRequest
+      - dwPixelRate:
+          requires:
+            - panWorkerRequest
+      - Xi1:
+          requires:
+            - dwPixelRate
+      - bob-ship:
+          requires:
+            - Xi1
+      - W15wg
+      - Verify_Release9:
+          requires:
+            - W15wg
+      - mx-test-b:
+          requires:
+            - W15wg
+      - UAT_INIT_3:
+          requires:
+            - mx-test-b
+      - invoice-2000
+      - rollout:
+          requires:
+            - invoice-2000
+      - photo_09042026:
+          requires:
+            - invoice-2000
+      - validate-end-to-end-release-candidate:
+          requires:
+            - photo_09042026
+      - barbaz:
+          requires:
+            - photo_09042026
+      - rip-it:
+          requires:
+            - barbaz
+      - voice_enemy:
+          requires:
+            - barbaz
+      - fix-edge-bug:
+          requires:
+            - voice_enemy
+      - q5c0o0:
+          requires:
+            - voice_enemy
+      - PROD_HOOK_7:
+          requires:
+            - q5c0o0
+      - start7:
+          requires:
+            - q5c0o0
+      - build-nightly-integration-tests:
+          requires:
+            - start7
+      - rewind-lock
+      - deep_sage:
+          requires:
+            - rewind-lock
+      - smoke:
+          requires:
+            - deep_sage
+      - limit_ref:
+          requires:
+            - deep_sage
+      - tweenIdxInternal:
+          requires:
+            - limit_ref
+      - ruby3-test:
+          requires:
+            - tweenIdxInternal
+      - LS-PTR-C:
+          requires:
+            - tweenIdxInternal
+      - pfPhonePipe:
+          requires:
+            - LS-PTR-C
+      - q3-release:
+          requires:
+            - pfPhonePipe
+      - tryPull:
+          requires:
+            - pfPhonePipe
+      - py-ubuntu:
+          requires:
+            - tryPull
+      - add-db-glitch:
+          requires:
+            - py-ubuntu
+      - quanyyck-core:
+          requires:
+            - py-ubuntu
+      - guardsetup:
+          requires:
+            - quanyyck-core
+      - zulu-7:
+          requires:
+            - guardsetup
+      - UntypedCanvasOptions
+      - java17-release:
+          requires:
+            - UntypedCanvasOptions
+      - scaleAsync:
+          requires:
+            - UntypedCanvasOptions
+      - hotel:
+          requires:
+            - scaleAsync
+      - scanner_9_17_26:
+          requires:
+            - scaleAsync
+      - vb:
+          requires:
+            - scanner_9_17_26
+      - ACCOUNT_MATRIX:
+          requires:
+            - scanner_9_17_26
+      - run-quick-integration-tests:
+          requires:
+            - ACCOUNT_MATRIX
+      - heidibot:
+          requires:
+            - ACCOUNT_MATRIX
+      - europa-rc:
+          requires:
+            - heidibot
+      - ichDeep:
+          requires:
+            - heidibot
+      - run-end-to-end-regression-suite:
+          requires:
+            - ichDeep
